@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import numpy as np
 
 data = pd.read_csv('../Lab_2/Data/vhi_end.csv')
 
@@ -101,8 +102,9 @@ with col2:
         st.write(filtered_data[['year', 'week', st.session_state.selected_time_row, 'area']])
 
     with tab2:
-        plt.figure(figsize=(5, 5))
-        sns.histplot(data=filtered_data, x='year', y=st.session_state.selected_time_row)
+        plt.figure(figsize=(8, 5))
+        sns.lineplot(data=filtered_data, x='year', y=st.session_state.selected_time_row)
+        plt.xticks(filtered_data['year'], rotation=90)
         plt.title(f'Відфільтровані дані')
         plt.xlabel('Рік')
         plt.ylabel(st.session_state.selected_time_row)
@@ -116,9 +118,10 @@ with col2:
         data_compare = data_compare[['year', st.session_state.selected_time_row, 'type']]
 
         color_palette = {st.session_state.selected_area:"b", "other":"yellow"}
-        plt.figure(figsize=(5, 5))
-        sns.histplot(data=data_compare, x='year', y=st.session_state.selected_time_row, hue='type', multiple="stack", palette=color_palette)
+        plt.figure(figsize=(8, 5))
+        sns.lineplot(data=data_compare, x='year', y=st.session_state.selected_time_row, hue='type', palette=color_palette)
         plt.title('Графік порівнянь даних по областях')
+        plt.xticks(filtered_data['year'], rotation=90)
         plt.xlabel('Рік')
         plt.ylabel(st.session_state.selected_time_row)
         st.pyplot(plt)
