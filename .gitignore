@@ -1,5 +1,6 @@
 *.csv
 *.txt
+*.data
 # Compiled source #
 ###################
 *.com
